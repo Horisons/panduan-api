@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Integrasi API Desa di React</title>
+    <style>        
+        .code-container {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 10px;
+            position: relative;
+            margin-bottom: 20px;
+            overflow: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .copy-btn:active {
+            background-color: #45a049;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #333;
+        }
+
+        pre {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Panduan Integrasi API Template Desa di React</h1>
+
+        <h2>1. Persiapan Awal</h2>
+        <p>Pastikan kamu sudah menginstal <strong>Node.js</strong> dan <strong>npm</strong> (Node Package Manager) di komputer. Untuk memeriksa, jalankan perintah berikut di terminal:</p>
+
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>node -v
+npm -v</code></pre>
+        </div>
+
+        <h2>2. Membuat Proyek React</h2>
+        <p>Jika sudah, kamu bisa membuat proyek React baru menggunakan Vite dengan perintah berikut:</p>
+        
+        <div class="code-container">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>npm create vite@latest desa-app --template react
+        cd desa-app
+        npm install
+        npm run dev</code></pre>
+        </div>
+        <p>Perintah ini akan membuat proyek baru bernama <strong>desa-app</strong> dan membuka proyek tersebut di browser secara otomatis.</p>
+        
+        <h2>3. Menginstal Axios</h2>
+        <p>Untuk mengakses API, kita akan menggunakan library <strong>Axios</strong>. Kamu bisa menginstalnya dengan perintah berikut:</p>
+
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>npm install axios</code></pre>
+        </div>
+
+        <h2>4. Buat Folder Components, Helpers, Hooks, Pages di dalam src</h2>
+        <p>Struktur folder sebaiknya seperti ini:</p>
+        <pre><code>src/
+├── components/
+├── helpers/
+├── hooks/
+└── pages/</code></pre>
+
+        <h2>5. Buat file .env</h2>
+        <p>Untuk mengakses API, kita akan host api di dalam file <strong>.env</strong>. Buat file ini di root proyek dan tambahkan URL API di dalamnya, misalnya:</p>
+
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>REACT_APP_API_URL=https://https://api-kawal-desa.lskk.co.id</code></pre>
+        </div>
+
+        <h2>6. Di dalam Folder Components, buatkan file komponen</h2>
+        <p>Di dalam folder <code>src/components</code>, kamu dapat membuat beberapa folder komponen sesuai dengan fungsinya. Berikut adalah beberapa komponen yang bisa kamu buat:</p>
+
+        <ul>
+            <li>
+                <strong>aparatus => Index.jsx</strong>: Komponen ini digunakan untuk menampilkan data tentang aparat desa, seperti kepala desa dan anggota lainnya.
+            </li>
+            <li>
+                <strong>news => Index.jsx</strong>: Komponen ini digunakan untuk menampilkan data tentang aparat desa, seperti kepala desa dan anggota lainnya.
+            </li>
+            <li>
+                <strong>villageActivities => Index.jsx</strong>: Komponen ini menampilkan daftar kegiatan yang dilakukan di desa, termasuk deskripsi dan tanggal kegiatan.
+            </li>
+            <li>
+                <strong>villageMarket => Index.jsx </strong>: Komponen ini digunakan untuk menampilkan informasi tentang pasar desa, seperti jenis produk yang dijual dan informasi penjual.
+            </li>
+            <li>
+                <strong>villageArea => Index.jsx</strong>: Komponen ini menampilkan data tentang area dan batasan wilayah desa, serta fitur-fitur yang ada di dalamnya.
+            </li>
+        </ul>
+
+        <h2>7. Kemudian pada Folder Helpers, buatkan file ini</h2>
+
+        <h3>a. api.js</h3>
+        <p>Pada file ini, buatlah konfigurasi dasar untuk API menggunakan Axios:</p>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>import axios from 'axios';
+        
+const baseURL = import.meta.env.VITE_API_BASE_URL;
+
+const API = axios.create({
+  baseURL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+export default API;</code></pre>
+        </div>
+        
+        <h3>b. service.js</h3>
+        <p>Pada file ini, kita akan membuat beberapa fungsi untuk mengambil data dari API:</p>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>import API from './api';
+
+// GUID Desa
+const GUID = '2305e536-0ef6-48e7-9aac-79ca236433fa';
+
+// Ambil data profile desa
+export const fetchVillageProfile = async () => {
+  try {
+    const response = await API.get('/api/village/profile', {
+      params: { guid: GUID },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching village profile:', error);
+    throw error;
+  }
+};
+
+// Ambil data UMKM Desa
+export const fetchVillageUMKM = async (page = 1, limit = 10) => {
+  try {
+    const response = await API.get('/api/umkm/village', {
+      params: { guid: GUID, page, limit },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching village UMKM:', error);
+    throw error;
+  }
+};
+
+// Ambil data berita desa
+export const fetchVillageNews = async (page = 1, limit = 10) => {
+  try {
+    const response = await API.get('/api/report/village', {
+      params: { guid: GUID, page, limit, type: 'news' },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching village news:', error);
+    throw error;
+  }
+};
+
+// Ambil data Aktifitas desa
+export const fetchVillageActivities = async (page = 1, limit = 10) => {
+  try {
+    const response = await API.get('/api/report/village', {
+      params: { guid: GUID, page, limit, type: 'activity' },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching village activities:', error);
+    throw error;
+  }
+};
+
+// Ambil data aset desa
+export const fetchVillageAssets = async (page = 1, limit = 10) => {
+  try {
+    const response = await API.get('/api/report/village', {
+      params: { guid: GUID, page, limit, type: 'asset' },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching village assets:', error);
+    throw error;
+  }
+};</code></pre>
+        </div>
+        
+        <h2>8. Lalu, didalam folder hooks </h2>
+
+        <h3>a. useApi.js</h3>
+        <p>isikan ini</p>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>
+import { useState, useEffect } from 'react';
+import { fetchVillageActivities, fetchVillageAssets, fetchVillageNews, fetchVillageProfile, fetchVillageUMKM } from '../helpers/service';
+
+export const useVillageAssets = (page = 1, limit = 10) => {
+    const [assets, setAssets] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const loadAssets = async () => {
+            try {
+                const data = await fetchVillageAssets(page, limit);
+                setAssets(data);
+            } catch (err) {
+                setError(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadAssets();
+    }, [page, limit]);
+
+    return { assets, loading, error };
+};
+
+export const useVillageActivities = (page = 1, limit = 10) => {
+    const [activities, setActivities] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const loadActivities = async () => {
+            try {
+                const data = await fetchVillageActivities(page, limit);
+                setActivities(data);
+            } catch (err) {
+                setError(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadActivities();
+    }, [page, limit]);
+
+    return { activities, loading, error };
+};
+
+export const useVillageUMKM = (page = 1, limit = 10) => {
+    const [umkm, setUMKM] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const loadUMKM = async () => {
+            try {
+                const data = await fetchVillageUMKM(page, limit);
+                setUMKM(data);
+            } catch (err) {
+                setError(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadUMKM();
+    }, [page, limit]);
+
+    return { umkm, loading, error };
+};
+
+export const useVillageNews = (page = 1, limit = 10) => {
+    const [news, setNews] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const loadNews = async () => {
+            try {
+                const data = await fetchVillageNews(page, limit);
+                setNews(data);
+            } catch (err) {
+                setError(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadNews();
+    }, [page, limit]);
+
+    return { news, loading, error };
+};
+
+export const useVillageProfile = () => {
+    const [profile, setProfile] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const loadProfile = async () => {
+            try {
+                const data = await fetchVillageProfile();
+                setProfile(data);
+            } catch (err) {
+                setError(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadProfile();
+    }, []);
+
+    return { profile, loading, error };
+};</code></pre>
+        </div>
+        
+        <h2>9. Penggunaan dalam Komponen</h2>
+        <p>Setelah semua siap, kamu bisa menggunakan hooks yang sudah dibuat dalam komponen React-mu. Berikut adalah contoh penggunaannya dalam komponen:</p>
+
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>import React from 'react';
+import { useVillageProfile, useVillageUMKM } from '../hooks/useApi';
+
+const VillageProfile = () => {
+    const { profile, loading, error } = useVillageProfile();
+
+    if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+    if (error) return &lt;div&gt;Error: {error.message}&lt;/div&gt;;
+
+    return (
+        &lt;div&gt;
+            &lt;h1&gt;Profil Desa&lt;/h1&gt;
+            &lt;p&gt;Nama: {profile.name}&lt;/p&gt;
+            &lt;p&gt;Deskripsi: {profile.description}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default VillageProfile;</code></pre>
+        </div>
+
+        <h2>10. Menjalankan Aplikasi</h2>
+        <p>Setelah semua langkah selesai, jalankan aplikasi dengan perintah:</p>
+
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>npm run dev</code></pre>
+        </div>
+        
+        <h2>Kesimpulan</h2>
+        <p>Dengan mengikuti panduan ini, kamu dapat mengintegrasikan API desa dengan projek React-mu. Pastikan untuk mengatur endpoint API dan menyesuaikan tampilan data sesuai kebutuhan aplikasi yang kamu buat.</p>
+
+        <h4>by Harist</h4>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling.querySelector('code');
+            const code = codeBlock.textContent;
+            navigator.clipboard.writeText(code)
+                .then(() => {
+                    alert('Kode telah disalin ke clipboard!');
+                })
+                .catch(err => {
+                    alert('Gagal menyalin kode: ' + err);
+                });
+        }
+    </script>
+</body>
+
+</html>
