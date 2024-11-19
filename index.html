@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panduan Integrasi API Desa di React</title>
-    <style>        
+    <style>
         .code-container {
             background-color: #f5f5f5;
             border: 1px solid #ddd;
@@ -51,31 +51,56 @@
 
 <body>
     <div class="container">
-        <h1>Panduan Integrasi API Template Desa di React</h1>
+        <h1>Panduan Membuat Template Website Desa di React + Vite</h1>
 
         <h2>1. Persiapan Awal</h2>
-        <p>Pastikan kamu sudah menginstal <strong>Node.js</strong> dan <strong>npm</strong> (Node Package Manager) di komputer. Untuk memeriksa, jalankan perintah berikut di terminal:</p>
+        <p>Pastikan kamu sudah menginstal <strong>Node.js</strong> dan <strong>npm</strong> (Node Package Manager) di
+            komputer. Untuk memeriksa, jalankan perintah berikut di terminal:</p>
+
+        <p>a. periksa <strong>Node.js</strong></p>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>node -v</code></pre>
+        </div>
+
+        <p>b. Periksa <strong>npm</strong></p>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>npm -v</code></pre>
+        </div>
+
+        <p>Jika perintah tersebut tidak mengembalikan versi dari <strong>Node.js</strong> dan <strong>npm</strong>, itu
+            berarti Node.js belum terinstal di komputer kamu. Silakan unduh dan instal dari situs resmi:</p>
+        <ul>
+            <li><a href="https://nodejs.org" target="_blank" rel="noopener noreferrer">https://nodejs.org</a></li>
+        </ul>
+        <p>Ikuti panduan instalasi sesuai dengan sistem operasi kamu (Windows, macOS, atau Linux).</p>
+
+        <h2>2. Membuat Proyek Website desa menggunakan react + vite</h2>
+        <p>Jika sudah, kamu bisa membuat proyek React baru menggunakan Vite dengan perintah berikut:</p>
 
         <div class="code-container">
             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-            <pre><code>node -v
-npm -v</code></pre>
+            <pre><code># Membuat project Vite baru dengan template React
+npm create vite@latest desa-app --template react
+
+# Masuk ke direktori project
+cd desa-app
+
+# Menginstal dependensi
+npm install
+
+# Menjalankan server development
+npm run dev
+    </code></pre>
         </div>
 
-        <h2>2. Membuat Proyek React</h2>
-        <p>Jika sudah, kamu bisa membuat proyek React baru menggunakan Vite dengan perintah berikut:</p>
-        
-        <div class="code-container">
-        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-            <pre><code>npm create vite@latest desa-app --template react
-        cd desa-app
-        npm install
-        npm run dev</code></pre>
-        </div>
-        <p>Perintah ini akan membuat proyek baru bernama <strong>desa-app</strong> dan membuka proyek tersebut di browser secara otomatis.</p>
-        
+        <p>Perintah ini akan membuat proyek baru bernama <strong>desa-app</strong> dan membuka proyek tersebut di
+            browser secara otomatis.</p>
+
         <h2>3. Menginstal Axios</h2>
-        <p>Untuk mengakses API, kita akan menggunakan library <strong>Axios</strong>. Kamu bisa menginstalnya dengan perintah berikut:</p>
+        <p>Untuk mengakses API, kita akan menggunakan library <strong>Axios</strong>. Kamu bisa menginstalnya dengan
+            perintah berikut:</p>
 
         <div class="code-container">
             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -91,7 +116,8 @@ npm -v</code></pre>
 └── pages/</code></pre>
 
         <h2>5. Buat file .env</h2>
-        <p>Untuk mengakses API, kita akan host api di dalam file <strong>.env</strong>. Buat file ini di root proyek dan tambahkan URL API di dalamnya, misalnya:</p>
+        <p>Untuk mengakses API, kita akan host api di dalam file <strong>.env</strong> diluar folder <code>src</code>. Buat file ini di root proyek dan
+            tambahkan URL API di dalamnya, misalnya:</p>
 
         <div class="code-container">
             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -99,29 +125,35 @@ npm -v</code></pre>
         </div>
 
         <h2>6. Di dalam Folder Components, buatkan file komponen</h2>
-        <p>Di dalam folder <code>src/components</code>, kamu dapat membuat beberapa folder komponen sesuai dengan fungsinya. Berikut adalah beberapa komponen yang bisa kamu buat:</p>
+        <p>Di dalam folder <code>src/components</code>, kamu dapat membuat beberapa folder komponen sesuai dengan
+            fungsinya. Berikut adalah beberapa komponen yang bisa kamu buat:</p>
 
         <ul>
             <li>
-                <strong>aparatus => Index.jsx</strong>: Komponen ini digunakan untuk menampilkan data tentang aparat desa, seperti kepala desa dan anggota lainnya.
+                <strong>aparatus => Index.jsx</strong>: Komponen ini digunakan untuk menampilkan data tentang aparat
+                desa, seperti kepala desa dan anggota lainnya.
             </li>
             <li>
-                <strong>news => Index.jsx</strong>: Komponen ini digunakan untuk menampilkan data tentang aparat desa, seperti kepala desa dan anggota lainnya.
+                <strong>news => Index.jsx</strong>: Komponen ini digunakan untuk menampilkan data tentang aparat desa,
+                seperti kepala desa dan anggota lainnya.
             </li>
             <li>
-                <strong>villageActivities => Index.jsx</strong>: Komponen ini menampilkan daftar kegiatan yang dilakukan di desa, termasuk deskripsi dan tanggal kegiatan.
+                <strong>villageActivities => Index.jsx</strong>: Komponen ini menampilkan daftar kegiatan yang dilakukan
+                di desa, termasuk deskripsi dan tanggal kegiatan.
             </li>
             <li>
-                <strong>villageMarket => Index.jsx </strong>: Komponen ini digunakan untuk menampilkan informasi tentang pasar desa, seperti jenis produk yang dijual dan informasi penjual.
+                <strong>villageMarket => Index.jsx </strong>: Komponen ini digunakan untuk menampilkan informasi tentang
+                pasar desa, seperti jenis produk yang dijual dan informasi penjual.
             </li>
             <li>
-                <strong>villageArea => Index.jsx</strong>: Komponen ini menampilkan data tentang area dan batasan wilayah desa, serta fitur-fitur yang ada di dalamnya.
+                <strong>villageArea => Index.jsx</strong>: Komponen ini menampilkan data tentang area dan batasan
+                wilayah desa, serta fitur-fitur yang ada di dalamnya.
             </li>
         </ul>
 
         <h2>7. Kemudian pada Folder Helpers, buatkan file ini</h2>
 
-        <h3>a. api.js</h3>
+        <h3>a. api.js </h3>
         <p>Pada file ini, buatlah konfigurasi dasar untuk API menggunakan Axios:</p>
         <div class="code-container">
             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -138,9 +170,104 @@ const API = axios.create({
 
 export default API;</code></pre>
         </div>
-        
-        <h3>b. service.js</h3>
-        <p>Pada file ini, kita akan membuat beberapa fungsi untuk mengambil data dari API:</p>
+
+        <h3>b. service.js (Pilih antara b atau c)</h3>
+        <p>Pada file ini, buatkan untuk konfigurasi dasar untuk API berdasarkan guid yang ada pada url website
+            menggunakan Axios:</p>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>
+import API from "./api";
+
+const getGUIDFromURL = () => {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('guid');
+};
+
+export const fetchVillageProfile = async () => {
+  const guid = getGUIDFromURL(); 
+  if (!guid) {
+    throw new Error("GUID tidak ditemukan");
+  }
+
+  try {
+    const response = await API.get(`/api/village/profile`, {
+      params: { guid },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching village profile:', error);
+    throw error;
+  }
+};
+
+export const fetchVillageUMKM = async (page = 1, limit = 10) => {
+  const guid = getGUIDFromURL();
+  if (!guid) throw new Error("GUID tidak ditemukan di URL");
+
+  try {
+    const response = await API.get(`/api/umkm/village`, {
+      params: { guid, page, limit },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching village UMKM:', error);
+    throw error;
+  }
+};
+
+export const fetchVillageNews = async (page = 1, limit = 10) => {
+  const guid = getGUIDFromURL();
+  if (!guid) throw new Error("GUID tidak ditemukan di URL");
+
+  try {
+    const response = await API.get(`/api/report/village`, {
+      params: { guid, page, limit, type: 'news' },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching village news:', error);
+    throw error;
+  }
+};
+
+export const fetchVillageActivities = async (page = 1, limit = 10) => {
+  const guid = getGUIDFromURL();
+  if (!guid) throw new Error("GUID tidak ditemukan di URL");
+
+  try {
+    const response = await API.get(`/api/report/village`, {
+      params: { guid, page, limit, type: 'activity' },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching village activities:', error);
+    throw error;
+  }
+};
+
+export const fetchVillageAssets = async (page = 1, limit = 10) => {
+  const guid = getGUIDFromURL();
+  if (!guid) throw new Error("GUID tidak ditemukan di URL");
+
+  try {
+    const response = await API.get(`/api/report/village`, {
+      params: { guid, page, limit, type: 'asset' },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching village assets:', error);
+    throw error;
+  }
+};
+    </code></pre>
+        </div>
+
+
+
+        <h3>c. service.js (Pilih antara b atau c)</h3>
+        <p>Pada file ini, kita akan membuat beberapa fungsi untuk mengambil data dari berdasarkan GUID yang sudah
+            dideklarasikan untuk memakai API:</p>
         <div class="code-container">
             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
             <pre><code>import API from './api';
@@ -213,7 +340,7 @@ export const fetchVillageAssets = async (page = 1, limit = 10) => {
   }
 };</code></pre>
         </div>
-        
+
         <h2>8. Lalu, didalam folder hooks </h2>
 
         <h3>a. useApi.js</h3>
@@ -339,9 +466,10 @@ export const useVillageProfile = () => {
     return { profile, loading, error };
 };</code></pre>
         </div>
-        
+
         <h2>9. Penggunaan dalam Komponen</h2>
-        <p>Setelah semua siap, kamu bisa menggunakan hooks yang sudah dibuat dalam komponen React-mu. Berikut adalah contoh penggunaannya dalam komponen:</p>
+        <p>Setelah semua siap, kamu bisa menggunakan hooks yang sudah dibuat dalam komponen React-mu. Berikut adalah
+            contoh penggunaannya dalam komponen:</p>
 
         <div class="code-container">
             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -366,18 +494,116 @@ const VillageProfile = () => {
 export default VillageProfile;</code></pre>
         </div>
 
-        <h2>10. Menjalankan Aplikasi</h2>
-        <p>Setelah semua langkah selesai, jalankan aplikasi dengan perintah:</p>
+        <h2>10. Cara Menggunakan Funcition Map di Proyek React</h2>
+        <p>Dalam React, kamu dapat menggunakan fungsi <code>map</code> untuk membuat elemen secara dinamis berdasarkan
+            array data.
+            Berikut adalah contoh penggunaannya untuk menampilkan daftar UMKM:</p>
 
         <div class="code-container">
             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-            <pre><code>npm run dev</code></pre>
-        </div>
-        
-        <h2>Kesimpulan</h2>
-        <p>Dengan mengikuti panduan ini, kamu dapat mengintegrasikan API desa dengan projek React-mu. Pastikan untuk mengatur endpoint API dan menyesuaikan tampilan data sesuai kebutuhan aplikasi yang kamu buat.</p>
+            <pre><code>
+import React from 'react';
+import { useVillageUMKM } from '../hooks/useApi';
 
-        <h4>by Harist</h4>
+const VillageUMKMList = () => {
+    const { umkm, loading, error } = useVillageUMKM();
+    const umkmList = umkm || []; // Pastikan umkmList adalah array
+
+    if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+    if (error) return &lt;div&gt;Error: {error.message}&lt;/div&gt;;
+
+    return (
+        &lt;div&gt;
+            &lt;h1&gt;Daftar UMKM Desa&lt;/h1&gt;
+            {umkmList.length &gt; 0 ? ( // Cek jika ada data
+                &lt;ul&gt;
+                    {umkmList.map((umkm) => (
+                        &lt;li key={umkm.id}&gt;
+                            &lt;h2&gt;{umkm.name}&lt;/h2&gt;
+                            &lt;p&gt;{umkm.description}&lt;/p&gt;
+                        &lt;/li&gt;
+                    ))}
+                &lt;/ul&gt;
+            ) : (
+                &lt;p&gt;Belum ada UMKM yang terdaftar.&lt;/p&gt;
+            )}
+        &lt;/div&gt;
+    );
+};
+
+export default VillageUMKMList;
+    </code></pre>
+        </div>
+
+
+        <h2>11. Styling dengan Tailwind CSS atau Framework CSS Lain</h2>
+        <p>Setelah komponen berhasil dibuat dan berfungsi, kamu bisa menambahkan styling agar tampilannya lebih menarik.
+            Kamu dapat menggunakan <strong>Tailwind CSS</strong>, framework CSS lainnya, atau bahkan CSS kustom sesuai
+            preferensi.</p>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>
+import React from 'react';
+import { useVillageUMKM } from '../hooks/useApi';
+
+const VillageUMKMList = () => {
+    const { umkm, loading, error } = useVillageUMKM();
+    const umkmList = umkm || []; // Pastikan umkmList adalah array
+
+    if (loading) return &lt;div className="text-center text-gray-500"&gt;Loading...&lt;/div&gt;;
+    if (error) return &lt;div className="text-center text-red-500"&gt;Error: {error.message}&lt;/div&gt;;
+
+    return (
+        &lt;div className="max-w-4xl mx-auto p-4"&gt;
+            &lt;h1 className="text-2xl font-bold text-center mb-4"&gt;Daftar UMKM Desa&lt;/h1&gt;
+            {umkmList.length &gt; 0 ? ( // Cek jika ada data
+                &lt;ul className="grid grid-cols-1 sm:grid-cols-2 gap-4"&gt;
+                    {umkmList.map((umkm) => (
+                        &lt;li key={umkm.id} className="border p-4 rounded-lg shadow"&gt;
+                            &lt;h2 className="text-lg font-semibold"&gt;{umkm.name}&lt;/h2&gt;
+                            &lt;p className="text-gray-600"&gt;{umkm.description}&lt;/p&gt;
+                        &lt;/li&gt;
+                    ))}
+                &lt;/ul&gt;
+            ) : (
+                &lt;p className="text-center text-gray-500"&gt;Belum ada UMKM yang terdaftar.&lt;/p&gt;
+            )}
+        &lt;/div&gt;
+    );
+};
+
+export default VillageUMKMList;
+    </code></pre>
+        </div>
+
+        <p>Code diatas adalah contoh penerapan styling menggunakan Tailwind CSS, selanjutnya kamu bisa menerapkan
+            styling sesuai dengan keinginan kamu sendiri.</p>
+
+            <h2>12. Menjalankan Aplikasi</h2>
+    <p>Setelah semua langkah selesai, jalankan aplikasi dengan perintah:</p>
+
+    <div class="code-container">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>npm run dev</code></pre>
+    </div>
+
+    <h2>Kesimpulan</h2>
+    <p>Dengan mengikuti panduan ini, kamu dapat mengintegrasikan API desa dengan projek React-mu. Pastikan untuk
+        mengatur endpoint API dan menyesuaikan styling tampilan data sesuai kebutuhan website desa yang kamu buat.</p>
+
+    <h3>Hapy Hacking!</h3>
+    <div class="container">
+        <footer class="text-center py-4 bg-gray-100 text-gray-700">
+            &copy; 2024 PT. LSKK. All rights reserved.
+        </footer>
+    </div>
+    
+    </div>
+
+
+    
+
+    
     </div>
 
     <script>
